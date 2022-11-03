@@ -14,6 +14,7 @@ const Item = (props) => {
   const [statsList, setStatsList] = useState([])
   const id = searchParams.get('id')
   const title = 'Cool Item!'
+
   const impact = ''
   const recommendations = ''
 
@@ -28,7 +29,7 @@ const Item = (props) => {
   }, [])
 
   return (
-    <div>
+    <div className="text-center text-lg">
       <h1>{title}</h1>
       <div>{statsList}</div>
     </div>
