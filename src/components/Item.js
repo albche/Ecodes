@@ -29,9 +29,12 @@ const Item = (props) => {
   }, [])
 
   return (
-    <div className="text-center text-lg">
-      <h1>{title}</h1>
-      <div>{statsList}</div>
+    <div className="h-screen w-screen place-content-center text-lg">
+      <div id="image" className="flex h-3/5 w-full bg-black"></div>
+      <div id="description" className="h-2/5 w-full bg-gray-400"></div>
+      <div id="extra" className="h-2/5 w-full bg-blue-600"></div>
+      <div id="extra2" className="h-2/5 w-full bg-green-600"></div>
+      <div id="extra3" className="h-2/5 w-full bg-red-600"></div>
     </div>
   )
 }
