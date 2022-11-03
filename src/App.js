@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Item from "./components/Item.js"
+import Item from "./components/Item.js";
 
 function App() {
   return (
