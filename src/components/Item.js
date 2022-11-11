@@ -10,16 +10,10 @@ const Item = (props) => {
     name: '',
     imgId: '',
     description: '',
-    stats: {
-      steeliron: 0,
-      cement: 0,
-      plastic: 0,
-      glass: 0,
-      latex: 0,
-      rubber: 0,
-      copper: 0,
-    },
-    statTotal: 0,
+    productionStatsId: 0,
+    productionStatTotal: 0,
+    electricityStatId: 0,
+    electricityStatTotal: 0,
   })
   const [productionStats, setProductionStats] = useState({
     steeliron: 0,
@@ -40,13 +34,10 @@ const Item = (props) => {
 
   useEffect(() => {
     const id = searchParams.get('id')
+    fetch('http://192.168.1.68:3421/item?id=' + id)
+      .then((response) => response.json())
+      .then((data) => console.log(data))
 
-    // fetch from database here
-    // fetch("https://localhost:3000/item?id=" + {id})
-    //   .then((response) => response.json())
-    //   .then((data) => itemData = data)
-
-    // console.log(itemData)
     const tempData = {
       id: id,
       name: 'Lorem Ipsum',
@@ -54,9 +45,9 @@ const Item = (props) => {
       description:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
       productionStatsId: 0,
-      productionStatTotal: 0,
+      productionStatTotal: 75,
       electricityStatId: 0,
-      electricityStatTotal: 0,
+      electricityStatTotal: 40,
     }
     setItemData(tempData)
 
@@ -80,7 +71,6 @@ const Item = (props) => {
       </h4>
     ))
     setProductionStats(statlist)
-    console.log('type: ', typeof statlist)
   }, [])
 
   return (
@@ -90,11 +80,36 @@ const Item = (props) => {
           src={'https://drive.google.com/uc?export=view&id=' + itemData.imgId}
         />
       </div>
-      <div id="description" className="h-2/5 w-full bg-green-200 text-center">
-        <br />
-        <p className="text-8xl"> Production {itemData.productionStatTotal}</p>
-        <br />
-        <p className="text-8xl"> Electricity {itemData.electricityStatTotal}</p>
+      <div
+        id="description"
+        className="w-full rounded-3xl bg-green-200 px-5 py-10"
+      >
+        <p className="text-6xl">Production</p>
+        <div
+          id="productionBar"
+          className="mt-5 h-14 w-full rounded-full bg-gray-400"
+        >
+          <div
+            className="rounded-full bg-blue-400"
+            style={{
+              height: '100%',
+              width: itemData.productionStatTotal + '%',
+            }}
+          />
+        </div>
+        <p className="mt-10 text-6xl"> Electricity</p>
+        <div
+          id="electricityBar"
+          className="mt-5 h-14 w-full rounded-full bg-gray-400"
+        >
+          <div
+            className="rounded-full bg-yellow-400"
+            style={{
+              height: '100%',
+              width: itemData.electricityStatTotal + '%',
+            }}
+          />
+        </div>
       </div>
       <div id="extra" className="h-2/5 w-full bg-blue-600 text-center">
         <br />
