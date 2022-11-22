@@ -10,12 +10,10 @@ const Item = (props) => {
   const [itemData, setItemData] = useState({
     id: 0,
     name: '',
-    imgId: '',
+    imgid: '',
     description: '',
-    productionStatsId: 0,
-    productionStatTotal: 0,
-    electricityStatId: 0,
-    electricityStatTotal: 0,
+    productionCost: 0,
+    electricityCost: 0,
   })
   const [productionStats, setProductionStats] = useState([])
 
@@ -33,22 +31,19 @@ const Item = (props) => {
         setItemData(data)
       })
 
-    const pStatlist = Object.entries(productionStats).map((stat) => (
-      <h4>
-        {stat[0]}: {String(stat[1])}
-      </h4>
-    ))
-    setProductionStats(pStatlist)
+    // const pStatlist = Object.entries(productionStats).map((stat) => (
+    //   <h4>
+    //     {stat[0]}: {String(stat[1])}
+    //   </h4>
+    // ))
+    // setProductionStats(pStatlist)
 
-    const eStatlist = Object.entries(productionStats).map((stat) => (
-      <h4>
-        {stat[0]}: {String(stat[1])}
-      </h4>
-    ))
-    setProductionStats(eStatlist)
-
-    setInitMargin(width - 20 + 'px')
+    setInitMargin(width - 30 + 'px')
   }, [])
+
+  // handleProductionInfoClicked() {
+
+  // }
 
   return (
     <div className="absolute h-screen w-screen place-content-center text-lg">
@@ -57,14 +52,19 @@ const Item = (props) => {
         className="fixed -z-50 flex aspect-square w-full bg-black"
       >
         <img
-          src={'https://drive.google.com/uc?export=view&id=' + itemData.imgId}
+          src={'https://drive.google.com/uc?export=view&id=' + itemData.imgid}
         />
       </div>
       <div
-        className="w-full rounded-t-3xl bg-green-200 px-5 pb-10 pt-6"
+        className="w-full rounded-t-3xl bg-green-300 px-5 pb-10 pt-6"
         style={{ marginTop: `${initMargin}` }}
       >
-        <p className="text-6xl">Production</p>
+        <div className="inline-flex">
+          <p className="ml-2 text-6xl">Material Production Score</p>
+          <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
+            i
+          </button>
+        </div>
         <div
           id="productionBar"
           className="relative mt-5 h-14 w-full rounded-full bg-gray-400"
@@ -73,11 +73,18 @@ const Item = (props) => {
             className="rounded-full bg-blue-400"
             style={{
               height: '100%',
-              width: itemData.productionStatTotal + '%',
+              width: 100 - itemData.productionCost + '%',
+              maxWidth: '100%',
+              minWidth: '6%',
             }}
           />
         </div>
-        <p className="mt-10 text-6xl"> Electricity</p>
+        <div className="mt-7 inline-flex">
+          <p className="ml-2 text-6xl">Electricity Score</p>
+          <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
+            i
+          </button>
+        </div>
         <div
           id="electricityBar"
           className="mt-5 h-14 w-full rounded-full bg-gray-400"
@@ -86,7 +93,9 @@ const Item = (props) => {
             className="rounded-full bg-yellow-400"
             style={{
               height: '100%',
-              width: itemData.electricityStatTotal + '%',
+              width: 100 - itemData.electricityCost + '%',
+              maxWidth: '100%',
+              minWidth: '6%',
             }}
           />
         </div>
@@ -101,10 +110,7 @@ const Item = (props) => {
           {itemData.description}
         </p>
       </div>
-      <div id="stats" className="h-2/5 w-full bg-green-600">
-        {productionStats}
-      </div>
-      <div id="extra3" className="h-2/5 w-full bg-red-600"></div>
+      {/* <div id="extra" className="h-2/5 w-full bg-red-600"></div> */}
     </div>
   )
 }
