@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 import '../style.css'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { isCompositeComponent } from 'react-dom/test-utils'
+import iron from '../assets/iron.jpg'
 
 const Item = (props) => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -13,22 +14,55 @@ const Item = (props) => {
     imgid: '',
     description: '',
     productionCost: 0,
+    productionTopFive: [],
     electricityCost: 0,
   })
+
+  const iconstyling = 'ml-4 mt-3 w-12 rounded-full bg-red-400 text-4xl'
+
   const [productionStats, setProductionStats] = useState([])
-
   const [electricityStats, setElectricityStats] = useState([])
-
   const { height, width } = useWindowDimensions()
   const [initMargin, setInitMargin] = useState('960px')
+  const [icons, setIcons] = useState()
 
   useEffect(() => {
     const id = searchParams.get('id')
     fetch('http://99.129.202.114:12345/item?id=' + id)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setItemData(data)
+        setIcons(
+          data.productionTopFive.slice(0, 3).map((mat) => {
+            switch (mat[0]) {
+              case 'aluminum':
+                return <img className={iconstyling} src={iron} />
+              case 'cement':
+                return <img className={iconstyling} src={iron} />
+              case 'plastic':
+                return <img className={iconstyling} src={iron} />
+              case 'glass':
+                return <img className={iconstyling} src={iron} />
+              case 'latex':
+                return <img className={iconstyling} src={iron} />
+              case 'rubber':
+                return <img className={iconstyling} src={iron} />
+              case 'copper':
+                return <img className={iconstyling} src={iron} />
+              case 'silver':
+                return <img className={iconstyling} src={iron} />
+              case 'steelIron':
+                return <img className={iconstyling} src={iron} />
+              case 'paper':
+                return <img className={iconstyling} src={iron} />
+              case 'textile':
+                return <img className={iconstyling} src={iron} />
+            }
+          })
+        )
+      })
+      .catch((err) => {
+        console.log(err)
       })
 
     // const pStatlist = Object.entries(productionStats).map((stat) => (
@@ -38,39 +72,50 @@ const Item = (props) => {
     // ))
     // setProductionStats(pStatlist)
 
-    setInitMargin(width - 30 + 'px')
+    setInitMargin(width - 62 + 'px')
   }, [])
+
+  // handleIconClick() {
+
+  // }
 
   // handleProductionInfoClicked() {
 
   // }
 
   /*
-   *border around entire screen
-   *small shadow between text and image
-   *icons of materials next to "material score" (icons will be provided)
-   *possibly plan to move title to the top of the page
+   *small shadow between text and image?
    */
 
   return (
-    <div className="absolute h-screen w-screen place-content-center text-lg">
+    <div
+      className="absolute -z-50 w-screen place-content-center border-green-400 bg-green-400 text-lg"
+      style={{ minHeight: '100vh', borderWidth: '16px' }}
+    >
+      <div id="title" className="fixed z-50 w-full text-center">
+        <p id="title" className="text-8xl">
+          {itemData.name}
+        </p>
+      </div>
       <div
         id="image"
-        className="fixed -z-50 flex aspect-square w-full bg-black"
+        className="fixed -z-40 flex aspect-square"
+        style={{ width: `${width - 34}px` }}
       >
         <img
           src={'https://drive.google.com/uc?export=view&id=' + itemData.imgid}
         />
       </div>
       <div
-        className="w-full rounded-t-3xl bg-green-300 px-5 pb-10 pt-6"
+        className="w-full rounded-t-3xl bg-green-400 px-5 pb-10 pt-6"
         style={{ marginTop: `${initMargin}` }}
       >
         <div className="inline-flex">
           <p className="ml-2 text-6xl">Material Score</p>
-          <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
+          {/* <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
             i
-          </button>
+          </button> */}
+          {icons}
         </div>
         <div
           id="productionBar"
@@ -88,9 +133,9 @@ const Item = (props) => {
         </div>
         <div className="mt-7 inline-flex">
           <p className="ml-2 text-6xl">Electricity Score</p>
-          <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
+          {/* <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
             i
-          </button>
+          </button> */}
         </div>
         <div
           id="electricityBar"
@@ -107,17 +152,20 @@ const Item = (props) => {
           />
         </div>
       </div>
-      <div id="descriptions" className="h-2/5 w-full bg-blue-600 text-center">
-        <br />
-        <p id="title" className="text-8xl">
-          {itemData.name}
-        </p>
+      <div
+        id="descriptions"
+        className="h-2/5 w-full bg-green-400 pb-10 text-center"
+      >
         <br />
         <p id="description" className="text-4xl">
           {itemData.description}
         </p>
       </div>
-      {/* <div id="extra" className="h-2/5 w-full bg-red-600"></div> */}
+      <div
+        id="extra"
+        className="w-full bg-green-400"
+        style={{ height: '3000px' }}
+      ></div>
     </div>
   )
 }
