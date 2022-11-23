@@ -45,6 +45,13 @@ const Item = (props) => {
 
   // }
 
+  /*
+   *border around entire screen
+   *small shadow between text and image
+   *icons of materials next to "material score" (icons will be provided)
+   *possibly plan to move title to the top of the page
+   */
+
   return (
     <div className="absolute h-screen w-screen place-content-center text-lg">
       <div
@@ -60,7 +67,7 @@ const Item = (props) => {
         style={{ marginTop: `${initMargin}` }}
       >
         <div className="inline-flex">
-          <p className="ml-2 text-6xl">Material Production Score</p>
+          <p className="ml-2 text-6xl">Material Score</p>
           <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
             i
           </button>
