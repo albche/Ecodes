@@ -4,7 +4,16 @@ import { useSearchParams } from 'react-router-dom'
 import '../style.css'
 import useWindowDimensions from '../hooks/useWindowDimensions'
 import { isCompositeComponent } from 'react-dom/test-utils'
-import iron from '../assets/iron.jpg'
+import iron from '../assets/iron_steel.png'
+import aluminum from '../assets/aluminum.png'
+import concrete from '../assets/concrete.png'
+import copper from '../assets/copper.png'
+import glass from '../assets/glass.png'
+import paper from '../assets/paper.png'
+import plastic from '../assets/plastic.png'
+import rubber from '../assets/rubber.png'
+import silver from '../assets/silver.png'
+import textiles from '../assets/textiles.png'
 
 const Item = (props) => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -18,7 +27,7 @@ const Item = (props) => {
     electricityCost: 0,
   })
 
-  const iconstyling = 'ml-4 mt-3 w-12 rounded-full bg-red-400 text-4xl'
+  const iconstyling = 'ml-4 mb-2 w-20 rounded-full text-4xl'
 
   const [productionStats, setProductionStats] = useState([])
   const [electricityStats, setElectricityStats] = useState([])
@@ -36,27 +45,42 @@ const Item = (props) => {
           data.productionTopFive.slice(0, 3).map((mat) => {
             switch (mat[0]) {
               case 'aluminum':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img className={iconstyling} src={aluminum} alt="Aluminum" />
+                )
               case 'cement':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img className={iconstyling} src={concrete} alt="Cement" />
+                )
               case 'plastic':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img className={iconstyling} src={plastic} alt="Plastic" />
+                )
               case 'glass':
-                return <img className={iconstyling} src={iron} />
+                return <img className={iconstyling} src={glass} alt="Glass" />
               case 'latex':
-                return <img className={iconstyling} src={iron} />
               case 'rubber':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img
+                    className={iconstyling}
+                    src={rubber}
+                    alt="Rubber/Latex"
+                  />
+                )
               case 'copper':
-                return <img className={iconstyling} src={iron} />
+                return <img className={iconstyling} src={copper} alt="Copper" />
               case 'silver':
-                return <img className={iconstyling} src={iron} />
+                return <img className={iconstyling} src={silver} alt="Silver" />
               case 'steelIron':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img className={iconstyling} src={iron} alt="Steel/Iron" />
+                )
               case 'paper':
-                return <img className={iconstyling} src={iron} />
+                return <img className={iconstyling} src={paper} alt="Paper" />
               case 'textile':
-                return <img className={iconstyling} src={iron} />
+                return (
+                  <img className={iconstyling} src={textiles} alt="Textiles" />
+                )
             }
           })
         )
@@ -92,7 +116,7 @@ const Item = (props) => {
       className="absolute -z-50 w-screen place-content-center border-green-400 bg-green-400 text-lg"
       style={{ minHeight: '100vh', borderWidth: '16px' }}
     >
-      <div id="title" className="fixed z-50 w-full text-center">
+      <div id="title" className="fixed z-50 mt-5 w-full text-center">
         <p id="title" className="text-8xl">
           {itemData.name}
         </p>
@@ -112,9 +136,6 @@ const Item = (props) => {
       >
         <div className="inline-flex">
           <p className="ml-2 text-6xl">Material Score</p>
-          {/* <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
-            i
-          </button> */}
           {icons}
         </div>
         <div
@@ -125,17 +146,17 @@ const Item = (props) => {
             className="rounded-full bg-blue-400"
             style={{
               height: '100%',
-              width: 100 - itemData.productionCost + '%',
+              width: 100 - itemData.productionCost / 100 + '%',
               maxWidth: '100%',
               minWidth: '6%',
             }}
           />
         </div>
         <div className="mt-7 inline-flex">
-          <p className="ml-2 text-6xl">Electricity Score</p>
-          {/* <button className="ml-4 mt-3 w-12 rounded-full bg-green-500 text-4xl">
-            i
-          </button> */}
+          <p className="ml-2 mb-2 text-6xl">Electricity Score</p>
+          <button className="ml-4 mt-3 w-fit rounded-full bg-gray-200 px-4 py-2 text-4xl">
+            {itemData.electricityKWH}kWh
+          </button>
         </div>
         <div
           id="electricityBar"
